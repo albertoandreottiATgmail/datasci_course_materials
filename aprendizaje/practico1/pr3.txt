@@ -1,0 +1,11 @@
+Punto 3
+La restricción de regularización se introduce en la función de costo con el objetivo
+de evitar el overfitting. El overfitting es una situación donde la hipótesis clasifica
+con mucha precisión los datos de entrenamiento, a costas de un peor desempeño en el 
+caso general, por ejemplo en el conjunto de prueba.
+El término se suma a la función de costo y puede tener varias formas. Una forma típica
+es una suma de los cuadrados de los coeficientes que forman el espacio de búsqueda.
+De esta forma se penalizan los coeficientes con valores altos, la hipótesis resultante
+tiende a generalizar mejor sobre datos nunca vistos.
+
+

@@ -1,0 +1,181 @@
+Punto 1
+Teorema de Bayes
+Que los eventos inexistentes aparezcan 0.5 veces, significa que P((a,b)=(1,3) | c=1)) = P((a,b)=(1,3) | c=0)) = 0.5 
+P(h=0) = 0.15    P(h=1) = 0.85
+Entonces,
+P((a,b)=(1,3) | c=0))*P(c=0) = 0.075
+P((a,b)=(1,3) | c=1))*P(c=1) = 0.425
+MAP predice c=1 para el dato en cuestion.
+Para ML, tenemos, 
+P((a,b)=(1,3) | c=0)) = 0.5
+P((a,b)=(1,3) | c=1)) = 0.5
+Naive Bayes,
+Split aleatorio de datos: 
+[(4, 0, 1), (6, 0, 1), (8, 2, 1), (7, 3, 1), (0, 2, 0), (2, 3, 1), (8, 1, 1), (9, 0, 1), (2, 3, 1), (9, 2, 1)]
+[(5, 0, 1), (9, 1, 1), (4, 1, 1), (1, 2, 0), (4, 1, 1), (7, 4, 1), (0, 0, 0), (4, 4, 1), (4, 1, 1), (7, 2, 1)]
+
+Con smoothing: 0.5
+precision = 1.0
+recall = 0.333333333333
+
+Con smoothing: 0.0001
+precision = 1.0
+recall = 0.777777777778
+
+
+Punto 2
+ID3
+La idea es una funcion que calcule paridad sobre vectores de tres
+features. La paridad se calcula sobre el primer y segundo valor del vector, el tercer
+valor es ruido. 
+Los datos son aleatorios y cada valor del vector pertenece al alfabeto [0,1]
+
+Los datos son: 
+[1, 1, 0, 0]
+
+[0, 0, 0, 0]
+
+[1, 1, 1, 0]
+
+[1, 0, 0, 1]
+
+[0, 1, 0, 1]
+
+[1, 0, 1, 1]
+
+[0, 0, 0, 0]
+
+[0, 1, 1, 1]
+
+[0, 1, 0, 1]
+
+[1, 1, 0, 0]
+
+[0, 0, 0, 0]
+
+[1, 0, 0, 1]
+
+[0, 1, 1, 1]
+
+[1, 1, 1, 0]
+
+[1, 1, 0, 0]
+
+[1, 1, 1, 0]
+
+[1, 0, 0, 1]
+
+[0, 0, 0, 0]
+
+[1, 0, 1, 1]
+
+[0, 0, 0, 0]
+
+[0, 0, 1, 0]
+
+[0, 1, 1, 1]
+
+[0, 1, 1, 1]
+
+[0, 0, 0, 0]
+
+[0, 0, 0, 0]
+
+[1, 0, 1, 1]
+
+[0, 0, 0, 0]
+
+[1, 1, 1, 0]
+
+[0, 1, 0, 1]
+
+[0, 1, 0, 1]
+
+
+Este es el árbol resultante usando information gain con ID3
+
+  Attribute:    Value: 
+    Attribute: 2   Value: 0
+        Attribute: 1   Value: 0
+                Attribute: 0   Value: 0
+                Attribute: 0   Value: 1
+        Attribute: 1   Value: 1
+                Attribute: 0   Value: 0
+                Attribute: 0   Value: 1
+    Attribute: 2   Value: 1
+        Attribute: 0   Value: 0
+                Attribute: 1   Value: 0
+                Attribute: 1   Value: 1
+        Attribute: 0   Value: 1
+                Attribute: 1   Value: 0
+                Attribute: 1   Value: 1
+
+
+vemos que arranca cortando por el atributo 2(tercer atributo del vector, sí, sumar '1' a todos las ocurrencias de la variable 'Attribute', es zero-based), que es ruido.
+Un árbol mucho más simple podría dar mejor resultado,
+
+
+
+
+
+
+
+
+
+
+
+
+
+por lo tanto ID3 produce resultados sub-óptimos para este problema de paridad.
+
+Punto 3
+La restricción de regularización se introduce en la función de costo con el objetivo
+de evitar el overfitting. El overfitting es una situación donde la hipótesis clasifica
+con mucha precisión los datos de entrenamiento, a costas de un peor desempeño en el 
+caso general, por ejemplo en el conjunto de prueba.
+El término se suma a la función de costo y puede tener varias formas. Una forma típica
+es una suma de los cuadrados de los coeficientes que forman el espacio de búsqueda.
+De esta forma se penalizan los coeficientes con valores altos, la hipótesis resultante
+tiende a generalizar mejor sobre datos nunca vistos.
+
+
+Punto 4
+A priori me cuesta creer que existan algunas condiciones para que los dos algoritmos 
+tengan como salida exactamente los mismos clusters, en el caso general.
+Existen k^N/k! formas de armar k clusters a partir de N elementos, por eso sospecho que 
+los clusters no serían idénticos, probablemente parecidos.
+Yo cortaría el dendograma cuando llegue a la cantidad de clusters con la que corrí k-means. 
+Por otro lado inicializaría k-means con datos elegidos aleatoriamente del training set para los centroides. Otra posibilidad sería inicializar los centroides de kmeans a los a los centroides obtenidos con el algoritmo jerárquico, aunque esto puede que en la práctica no tenga mucho 
+sentido.
+
+Punto 5
+Para hacer recomendaciones utilizando un algoritmo de clasificación se podría pensar en 
+el problema de recomendación como el problema de predecir la valoración que un usuario tendría
+sobre un determinado ítem o artículo.
+Por ejemplo, se podrían tener 5 clases, cada una representando un número del 1 al 5, que
+indique cuál es la valoración que un usuario haría de un artículo. De esta manera, se 
+correría la clasificación sobre los artículos que el usuario todavía no ha visto(en caso
+de que sean artículos que solo tenga sentido usarlos una sola vez) y se le ofrecerían 
+aquellos que fuero clasificados con número más alto.
+El espacio de features puede estar compuesto por features acerca del usuario, tales como
+su edad, sexo, idioma, etc. También se pueden incluir features acerca de los artículos, por
+ejemplo para el caso de películas se podría incluir el elenco, features extraidos de la 
+descripción de la película, el género, etc.
+Además se podrían incluir features históricos para cada usuario, de acuerdo al historial de
+ítems que el usuario haya consumido. Para esto haría falta que el sistema se ponga en 
+funcionamiento por cierta cantidad de tiempo. Una opción es inicializar con datos "neutrales"
+(la misma preferencia histórica por todas las clases de artículos)o también con datos aleatorios,
+dependiendo si el caso práctico tiene sentido.
+El algoritmo de recomendación basado en ítems probablemente desperdicie información acerca
+de la similitud de un usuario con otros y el potencial de esta relación para calcular 
+recomendaciones. El enfoque de clasificación planteado más arriba hace uso de esa similitud
+al incluir features acerca del usuario en el espacio de features.
+
+
+
+
+
+
+
+
+

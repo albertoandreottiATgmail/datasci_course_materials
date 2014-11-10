@@ -1,0 +1,24 @@
+Punto 5
+Para hacer recomendaciones utilizando un algoritmo de clasificación se podría pensar en 
+el problema de recomendación como el problema de predecir la valoración que un usuario tendría
+sobre un determinado ítem o artículo.
+Por ejemplo, se podrían tener 5 clases, cada una representando un número del 1 al 5, que
+indique cuál es la valoración que un usuario haría de un artículo. De esta manera, se 
+correría la clasificación sobre los artículos que el usuario todavía no ha visto(en caso
+de que sean artículos que solo tenga sentido usarlos una sola vez) y se le ofrecerían 
+aquellos que fuero clasificados con número más alto.
+El espacio de features puede estar compuesto por features acerca del usuario, tales como
+su edad, sexo, idioma, etc. También se pueden incluir features acerca de los artículos, por
+ejemplo para el caso de películas se podría incluir el elenco, features extraidos de la 
+descripción de la película, el género, etc.
+Además se podrían incluir features históricos para cada usuario, de acuerdo al historial de
+ítems que el usuario haya consumido. Para esto haría falta que el sistema se ponga en 
+funcionamiento por cierta cantidad de tiempo. Una opción es inicializar con datos "neutrales"
+(la misma preferencia histórica por todas las clases de artículos)o también con datos aleatorios,
+dependiendo si el caso práctico tiene sentido.
+El algoritmo de recomendación basado en ítems probablemente desperdicie información acerca
+de la similitud de un usuario con otros y el potencial de esta relación para calcular 
+recomendaciones. El enfoque de clasificación planteado más arriba hace uso de esa similitud
+al incluir features acerca del usuario en el espacio de features.
+
+

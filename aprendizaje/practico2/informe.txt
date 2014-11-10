@@ -1,0 +1,38 @@
+1. De las tres características del teorema CAP, Consistency, Partition Tolerance & Availability,
+Hadoop elige Consistencia y tolerancia a particiones de la red.
+La disponibilidad no está asegurada, ya que si fallan tres nodos del HDFS, puede darse el caso
+de que algunos archivos se tornen no disponibles.
+
+CP: Hadoop y Zookeeper. Ambos eligen consistencia. La disponibilidad es mucho más cara de mantener
+que la consistencia. En estos sistemas los datos pueden tornarse no disponibles, pero cuando están,
+todos los ven de manera consistente.
+AP: Ejemplos Amazon Dynamo, CouchDB, Cassandra, SimpleDB, Riak, Voldemort.
+CA: Parece ser que en la práctica uno no puede elegir 'no soportar' particiones en la red. Mantener
+C y A, es un lugar del espacio de diseño con poco valor práctico.
+
+La realidad es que en la práctica no todas las capacidades son excluyentes de manera absoluta,
+sino que existe un continuo entre las capacidades donde se puede comprometer partes de una
+característica en beneficio de alguna otra.
+Parece ser que la realidad de CAP, al día de la fecha, para los diseñadores de sistemas distribuidos
+es ver como balancear la C y la A manteniendo P. Digamos, no se pueden salvar de encargarse de P.
+
+2. 
+
+
+4. Descomposición LU.
+La implementación MapReduce de este algoritmo tiene dos(*) partes: 
+	1. La partición de los datos de acuerdo al procedimiento recursivo que se explica en la tesis.
+	2. Un serie de trabajos MapReduce que calculan los diferentes pedazos de la matriz resultante.
+
+
+La partición arranca con un trabajo MapReduce que solo contiene mappers que particionan los datos. La 
+partición de la matriz inicial se hace en el directorio Root/ y después se repite el procedimiento
+volviendo a crear los archivos de control adentro de un subdirectorio debajo de Root/.
+
+
+
+
+
+
+
+(*)omitiendo los archivos de control, que por simplicidad, asumo están creados.
